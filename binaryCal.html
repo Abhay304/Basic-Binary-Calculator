@@ -1,0 +1,162 @@
+    <!-- Enter your HTML code here -->
+    <!DOCTYPE html>
+    <html>
+
+    <head>
+        <meta charset="utf-8">
+        <title>Binary Calculator</title>
+        <style>
+            body {
+                width: 33%;
+            }
+
+            .display {
+                background-color: lightgray;
+                border: solid;
+                height: 48px;
+                font-size: 20px;
+                width: 99%;
+            }
+
+            .btn {
+                width: 25%;
+                height: 36px;
+                font-size: 18px;
+                margin: 0px;
+                float: left;
+            }
+
+            .btn.btnNum {
+                background-color: lightgreen;
+                color: brown;
+            }
+
+            .btn.btnFun {
+                background-color: darkgreen;
+                color: white;
+            }
+
+            .btn.btnEqu {
+                background-color: black;
+                color: red;
+            }
+        </style>
+    </head>
+
+    <body>
+
+        <div>
+            <input id="res" name="res" class="display"></input>
+        </div>
+        <div id="btns">
+            <button id="btn0" class="btn btnNum">0</button>
+            <button id="btn1" class="btn btnNum">1</button>
+            <button id="btnClr" class="btn btnFun">C</button>
+            <button id="btnEql" class="btn btnFun" onclick="calculateVal();">=</button>
+            <button id="btnSum" class="btn btnEqu">+</button>
+            <button id="btnSub" class="btn btnEqu">-</button>
+            <button id="btnMul" class="btn btnEqu">*</button>
+            <button id="btnDiv" class="btn btnEqu">/</button>
+        </div>
+
+        <script>
+            document.getElementById('btn0').addEventListener('click', function (e) {
+                document.getElementById('res').value += '0';
+            });
+
+            document.getElementById('btn1').addEventListener('click', function (e) {
+                document.getElementById('res').value += '1';
+            });
+
+
+            document.getElementById('btnSum').addEventListener('click', function () {
+                document.getElementById('res').value += '+';
+            });
+
+            document.getElementById('btnSub').addEventListener('click', () => {
+                document.getElementById('res').value += '-';
+            });
+
+            document.getElementById('btnMul').addEventListener('click', function () {
+                document.getElementById('res').value += '*';
+            });
+
+            document.getElementById('btnDiv').addEventListener('click', function () {
+                document.getElementById('res').value += '/';
+            });
+
+            document.getElementById('btnClr').addEventListener('click', function () {
+                document.getElementById('res').value    = "";
+            });
+
+
+            function calculateVal() {
+                try{
+                    var disVal = document.getElementById('res').value;
+  
+                    //regular expression
+                    var sum = /[+]/gi;
+                    var mul = /[*]/gi;
+                    var div = /[/]/gi;
+                    var sub = /[-]/gi;
+
+                    var result2 = disVal.match(mul);
+                    var result1 = disVal.match(sum);
+                    var result3 = disVal.match(div);
+                    var result4 = disVal.match(sub);
+
+                    if (result1 != "" && result1 != null && result1[0] == "+") {
+
+                        let res1 = disVal.split("+");
+                        const sVal1 = res1[0];
+                        const sVal2 = res1[1];
+                        let intVal1 = parseInt(sVal1,2);
+                        let intVal2 = parseInt(sVal2,2);
+                        let TotalSum = intVal1 + intVal2;
+                        console.log(TotalSum);
+                        var bin = (TotalSum).toString(2);
+                        document.getElementById('res').value = bin;
+                    } 
+                    else if ( result2 != "" && result2 != null && result2[0] == "*") {
+                        let res1 = disVal.split("*");
+                        const mVal1 = res1[0];
+                        const mVal2 = res1[1];
+                        let intVal1 = parseInt(mVal1,2);
+                        let intVal2 = parseInt(mVal2,2);
+                        let TotalSum = intVal1 * intVal2;
+                    
+                        var bin = (TotalSum).toString(2);
+                        document.getElementById('res').value = bin;
+                    } 
+                    else if ( result4 != "" && result4 != null && result4[0] == "-") {
+                        let res1 = disVal.split("-");
+                        const suVal1 = res1[0];
+                        const suVal2 = res1[1];
+                        let intVal1 = parseInt(suVal1,2);
+                        let intVal2 = parseInt(suVal2,2);
+                        let TotalSum = intVal1 - intVal2;
+                        var bin = (TotalSum).toString(2);
+                        document.getElementById('res').value = bin;
+                    } 
+                    else if (result3 != "" && result3 != null && result3[0] == "/") {
+                        let res1 = disVal.split("/");
+                        const dVal1 = res1[0];
+                        const dVal2 = res1[1];
+                        let intVal1 = parseInt(dVal1,2);
+                        let intVal2 = parseInt(dVal2,2);
+                        let TotalSum = intVal1 / intVal2;
+                        var bin = (TotalSum).toString(2);
+                        document.getElementById('res').value = bin;
+                   } else{
+                       throw 'Maths Error';
+                   }  
+                }catch(e){
+                  alert(e);
+                  document.getElementById('res').value = e;
+                } 
+            }
+        </script>
+
+    </body>
+
+    </html>
